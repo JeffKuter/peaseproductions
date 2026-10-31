@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pease Productions | Short films and documentaries</title>
+<meta name="description" content="Pease Productions makes short films and documentaries, with official selections at festivals including The Brightside, Block Island, Lighthouse International and Sound and Speed.">
+<meta property="og:title" content="Pease Productions">
+<meta property="og:description" content="Short films and documentaries, screened at festivals across the Northeast.">
+<meta property="og:image" content="images/share.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#3E98A6">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Lilita+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #3E98A6;
+    --teal-deep: #2B6F7A;
+    --marigold: #F7B13A;
+    --coral: #E0574A;
+    --grape: #6B3F9E;
+    --pink: #E0367F;
+    --black: #000;
+    --white: #fff;
+    --screen-text: #E9E4DA;
+    --screen-muted: #A9A398;
+    --display: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
+    --body: "Atkinson Hyperlegible", system-ui, sans-serif;
+    --gutter: clamp(16px, 4vw, 48px);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--black); color: var(--screen-text); font: 400 1.0625rem/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--marigold); outline-offset: 3px; border-radius: 4px; }
+  .skip { position: absolute; left: -9999px; }
+  .skip:focus { left: 16px; top: 16px; z-index: 50; background: var(--white); color: var(--black); padding: 8px 14px; }
+
+  /* ---------- Top bar ---------- */
+  .bar { position: absolute; inset: 0 0 auto 0; z-index: 5; display: flex; justify-content: flex-end; gap: clamp(16px, 3vw, 32px); padding: 20px var(--gutter); }
+  .bar a { font: 1.125rem/1 var(--display); color: var(--white); text-decoration: none; text-shadow: 0 2px 0 rgba(0,0,0,.35); letter-spacing: .01em; }
+  .bar a:hover { color: var(--marigold); }
+
+  /* ---------- Hero: the party ---------- */
+  .hero { position: relative; overflow: hidden; background: var(--teal); min-height: min(100svh, 980px); display: grid; place-items: center; padding: 88px var(--gutter) 140px; text-align: center; }
+  .confetti { position: absolute; inset: 0; pointer-events: none; }
+  .confetti i { position: absolute; top: var(--y); left: var(--x); width: var(--w); height: calc(var(--w) * .42); background: var(--c); border: 2px solid #111; border-radius: 3px; transform: rotate(var(--r)); }
+  .hero-inner { position: relative; z-index: 1; max-width: 640px; }
+  .hero-logo { width: min(78vw, 520px); margin: 0 auto; filter: drop-shadow(0 10px 0 rgba(0,0,0,.18)); }
+  .hero h1 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .hero p { margin: 22px auto 0; max-width: 32ch; font-size: clamp(1.15rem, 2.2vw, 1.35rem); color: var(--white); text-shadow: 0 1px 0 rgba(0,0,0,.25); }
+  .btn { display: inline-block; margin-top: 26px; padding: 14px 28px; font: 1.25rem/1 var(--display); letter-spacing: .01em; text-decoration: none; color: var(--black); background: var(--marigold); border: 3px solid var(--black); border-radius: 999px; box-shadow: 0 5px 0 var(--black); transition: transform .12s, box-shadow .12s; }
+  .btn:hover { transform: translateY(2px); box-shadow: 0 3px 0 var(--black); }
+  .btn:active { transform: translateY(5px); box-shadow: 0 0 0 var(--black); }
+
+  /* The house lights go down: scalloped curtain edge between the party and the screening room */
+  .curtain { position: absolute; left: 0; right: 0; bottom: -1px; height: 64px; z-index: 2; color: var(--black); }
+  .curtain svg { width: 100%; height: 100%; display: block; }
+
+  /* ---------- Films: the screening room ---------- */
+  .films { padding: clamp(56px, 8vw, 112px) var(--gutter) clamp(40px, 6vw, 80px); }
+  .films-head { max-width: 1120px; margin: 0 auto clamp(40px, 6vw, 80px); }
+  .films-head h2 { margin: 0; font: clamp(2.6rem, 7vw, 4.75rem)/1 var(--display); color: var(--white); letter-spacing: .005em; }
+  .films-head p { margin: 14px 0 0; max-width: 54ch; color: var(--screen-muted); }
+
+  .film { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(28px, 5vw, 72px); align-items: center; padding: clamp(36px, 5vw, 64px) 0; }
+  .film + .film { border-top: 1px solid #262320; }
+  .film:nth-of-type(even) .poster { order: 2; }
+  .poster { padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 6px; overflow: hidden; box-shadow: 0 0 0 1px #2a2723, 0 30px 60px -20px rgba(62,152,166,.35); }
+  .poster img { width: 100%; aspect-ratio: 1545 / 2000; object-fit: cover; }
+  .film h3 { margin: 0; font: clamp(2rem, 4.2vw, 3rem)/1.02 var(--display); color: var(--marigold); }
+  .film .kind { margin: 10px 0 0; color: var(--screen-muted); font-size: 1rem; }
+  .film .about { margin: 22px 0 0; max-width: 58ch; }
+  .film .about p { margin: 0 0 1em; }
+  .film .about .soon { color: var(--screen-muted); font-style: italic; }
+  .film h4 { margin: 28px 0 10px; font: 1.125rem/1.2 var(--display); color: var(--white); letter-spacing: .01em; }
+  .laurels { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .laurels li { display: grid; grid-template-columns: 20px 1fr auto; gap: 10px; align-items: baseline; padding-bottom: 8px; border-bottom: 1px dashed #2f2b27; font-size: 1rem; }
+  .laurels li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--teal); transform: translateY(-1px); }
+  .laurels li.premiere::before { background: var(--coral); }
+  .laurels .yr { color: var(--screen-muted); font-variant-numeric: tabular-nums; }
+
+  /* ---------- Contact ---------- */
+  .contact { background: var(--marigold); color: var(--black); padding: clamp(64px, 9vw, 120px) var(--gutter); }
+  .contact-inner { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: auto 1fr; gap: clamp(24px, 5vw, 64px); align-items: center; }
+  .contact-logo { width: clamp(120px, 18vw, 200px); }
+  .contact h2 { margin: 0; font: clamp(2.2rem, 5.5vw, 3.75rem)/1.02 var(--display); }
+  .contact p { margin: 14px 0 0; max-width: 52ch; font-size: 1.125rem; }
+  .email { display: inline-block; margin-top: 24px; padding: 14px 26px; font: clamp(1.1rem, 2.6vw, 1.5rem)/1.1 var(--display); color: var(--white); background: var(--grape); border: 3px solid var(--black); border-radius: 999px; box-shadow: 0 5px 0 var(--black); text-decoration: none; overflow-wrap: anywhere; transition: transform .12s, box-shadow .12s; }
+  .email:hover, .youtube:hover { transform: translateY(2px); box-shadow: 0 3px 0 var(--black); }
+  .contact-links { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: 24px; }
+  .contact-links .email { margin-top: 0; }
+  .youtube { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; font: clamp(1.1rem, 2.6vw, 1.5rem)/1.1 var(--display); color: var(--white); background: #D62828; border: 3px solid var(--black); border-radius: 999px; box-shadow: 0 5px 0 var(--black); text-decoration: none; transition: transform .12s, box-shadow .12s; }
+  .yt-link { color: var(--marigold); text-underline-offset: 3px; }
+  footer a { color: var(--screen-text); text-underline-offset: 3px; }
+
+  footer { padding: 28px var(--gutter); text-align: center; color: var(--screen-muted); font-size: .9375rem; }
+
+  /* ---------- Poster viewer ---------- */
+  dialog { padding: 0; border: 0; background: transparent; max-width: min(92vw, 900px); max-height: 92vh; }
+  dialog::backdrop { background: rgba(0,0,0,.88); }
+  dialog img { max-height: 86vh; width: auto; margin: 0 auto; border-radius: 6px; }
+  dialog form { text-align: center; margin-top: 12px; }
+  dialog button { font: 1.05rem/1 var(--display); color: var(--black); background: var(--white); border: 0; border-radius: 999px; padding: 10px 20px; cursor: pointer; }
+
+  @media (max-width: 760px) {
+    .bar { justify-content: center; }
+    .hero { min-height: 0; padding: 84px var(--gutter) 120px; }
+    .film { grid-template-columns: 1fr; }
+    .film:nth-of-type(even) .poster { order: 0; }
+    .poster { max-width: 440px; }
+    .contact-inner { grid-template-columns: 1fr; }
+  }
+
+  /* One orchestrated moment: confetti drops in once on load */
+  @media (prefers-reduced-motion: no-preference) {
+    .confetti i { animation: drop 1.6s cubic-bezier(.2,.7,.3,1) both; animation-delay: var(--d); }
+    .hero-logo { animation: pop .7s cubic-bezier(.3,1.5,.5,1) .15s both; }
+    @keyframes drop { from { opacity: 0; transform: translateY(-60vh) rotate(calc(var(--r) - 200deg)); } to { opacity: 1; transform: translateY(0) rotate(var(--r)); } }
+    @keyframes pop { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: scale(1); } }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#films">Skip to the films</a>
+
+<header class="hero">
+  <nav class="bar" aria-label="Main">
+    <a href="#films">Films</a>
+    <a href="https://www.youtube.com/@pease_productions" target="_blank" rel="noopener">YouTube</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <h1>Pease Productions</h1>
+    <img class="hero-logo" src="images/logo.png" width="900" height="890" alt="Pease Productions logo: the word Pease over a teal banner reading Productions, with a studio light and a clapperboard">
+    <p>Short films and documentaries, screened at festivals across the Northeast.</p>
+    <a class="btn" href="#films">See the films</a>
+  </div>
+  <div class="curtain" aria-hidden="true">
+    <svg viewBox="0 0 1200 64" preserveAspectRatio="none"><path fill="currentColor" d="M0 64V40 Q50 0 100 40 T200 40 T300 40 T400 40 T500 40 T600 40 T700 40 T800 40 T900 40 T1000 40 T1100 40 T1200 40 V64Z"/></svg>
+  </div>
+</header>
+
+<main>
+  <section class="films" id="films" aria-labelledby="films-title">
+    <div class="films-head">
+      <h2 id="films-title">The films</h2>
+      <p>Click any poster to see it full size. You can find more on the <a class="yt-link" href="https://www.youtube.com/@pease_productions" target="_blank" rel="noopener">Pease Productions YouTube channel</a>.</p>
+    </div>
+
+    <!-- ===================== FILM 1 ===================== -->
+    <article class="film" id="a-day-in-the-life">
+      <button class="poster" type="button" data-full="images/a-day-in-the-life.jpg" aria-label="View the A Day in the Life poster full size">
+        <img src="images/a-day-in-the-life-720.jpg" width="720" height="932" alt="Poster for A Day in the Life: a clown with a red nose and white face paint beside a bottle of chocolate syrup" loading="lazy">
+      </button>
+      <div>
+        <h3>A Day in the Life…</h3>
+        <p class="kind">Short film, 2026</p>
+        <!-- DESCRIPTION: to add one, paste here: <div class="about"><p>Description text.</p></div> -->
+        <h4>Festivals</h4>
+        <ul class="laurels">
+          <li><span>Count Basie Center Breakthrough Film Festival</span><span class="yr">2026</span></li>
+          <li><span>The Brightside Film Festival</span><span class="yr">2026</span></li>
+          <li><span>Lighthouse International Film Festival</span><span class="yr">2026</span></li>
+          <li><span>Sound and Speed Film Festival</span><span class="yr">2026</span></li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- ===================== FILM 2 ===================== -->
+    <article class="film" id="cursed-child-documentary">
+      <button class="poster" type="button" data-full="images/cursed-child-documentary.jpg" aria-label="View the Cursed Child documentary poster full size">
+        <img src="images/cursed-child-documentary-720.jpg" width="720" height="932" alt="Poster for the Harry Potter and the Cursed Child high school edition documentary: two student actors on a dark stage" loading="lazy">
+      </button>
+      <div>
+        <h3>Harry Potter and the Cursed Child: HSE 2025 ITF Documentary</h3>
+        <p class="kind">Documentary, 2025</p>
+        <!-- DESCRIPTION: to add one, paste here: <div class="about"><p>Description text.</p></div> -->
+        <h4>Festivals</h4>
+        <ul class="laurels">
+          <li><span>Block Island Film Festival</span><span class="yr">2026</span></li>
+          <li><span>The Brightside Film Festival</span><span class="yr">2026</span></li>
+          <li class="premiere"><span>Premiere</span><span class="yr">2025</span></li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- ===================== FILM 3 ===================== -->
+    <article class="film" id="he-is-mine">
+      <button class="poster" type="button" data-full="images/he-is-mine.jpg" aria-label="View the He Is Mine poster full size">
+        <img src="images/he-is-mine-720.jpg" width="720" height="932" alt="Poster for He Is Mine: a white envelope sealed with a red spot on a black background" loading="lazy">
+      </button>
+      <div>
+        <h3>He Is Mine</h3>
+        <p class="kind">Short film, 2025</p>
+        <!-- DESCRIPTION: to add one, paste here: <div class="about"><p>Description text.</p></div> -->
+        <h4>Festivals</h4>
+        <ul class="laurels">
+          <li><span>Jackson Film Challenge</span><span class="yr">2025</span></li>
+          <li><span>Sound and Speed Film Festival</span><span class="yr">2025</span></li>
+          <li><span>Art All Night Trenton Film Festival</span><span class="yr">2025</span></li>
+          <li><span>The Brightside Film Festival</span><span class="yr">2025</span></li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="contact-inner">
+      <img class="contact-logo" src="images/logo-small.png" width="160" height="158" alt="" loading="lazy">
+      <div>
+        <h2 id="contact-title">Get in touch</h2>
+        <p>Festival programmers, collaborators, and anyone who wants to talk about a film: send an email and it comes straight to me.</p>
+        <!-- EMAIL: change the address in BOTH places on the next line -->
+        <div class="contact-links">
+          <a class="email" href="mailto:mollytheperformer@gmail.com">mollytheperformer@gmail.com</a>
+          <a class="youtube" href="https://www.youtube.com/@pease_productions" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8ZM9.7 15.1V8.9L15.5 12l-5.8 3.1Z"/></svg>YouTube channel</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>© <span id="yr">2026</span> Pease Productions · <a href="https://www.youtube.com/@pease_productions" target="_blank" rel="noopener">YouTube</a></footer>
+
+<dialog id="viewer" aria-label="Poster">
+  <img id="viewer-img" src="" alt="">
+  <form method="dialog"><button>Close</button></form>
+</dialog>
+
+<script>
+  // Confetti in the logo's colors, placed the same way on every visit
+  (function () {
+    var box = document.getElementById('confetti');
+    var colors = ['#E0574A', '#F7B13A', '#6B3F9E', '#E0367F', '#2E7FD0', '#3BA357', '#F2D43D', '#EE6A2F'];
+    var seed = 7;
+    function rnd() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+    var narrow = window.innerWidth < 700;
+    var count = narrow ? 30 : 64;
+    // keep the logo, tagline, button and menu clear
+    var clear = narrow ? [4, 96, 9, 90] : [22, 78, 12, 82];
+    for (var i = 0; i < count; i++) {
+      var x = rnd() * 100, y = rnd() * 92;
+      if ((x > clear[0] && x < clear[1] && y > clear[2] && y < clear[3]) || (y < 11 && x > 25 && x < 75) || (y < 8 && x >= 75 && !narrow)) { i--; continue; }
+      var el = document.createElement('i');
+      el.style.cssText = '--x:' + x + '%;--y:' + y + '%;--w:' + (14 + rnd() * 16) + 'px;--r:' + Math.round(rnd() * 360) + 'deg;--c:' + colors[i % colors.length] + ';--d:' + (rnd() * .5).toFixed(2) + 's';
+      box.appendChild(el);
+    }
+  })();
+
+  // Full-size poster viewer
+  var viewer = document.getElementById('viewer'), vimg = document.getElementById('viewer-img');
+  document.querySelectorAll('.poster').forEach(function (b) {
+    b.addEventListener('click', function () {
+      vimg.src = b.dataset.full;
+      vimg.alt = b.querySelector('img').alt;
+      viewer.showModal();
+    });
+  });
+  viewer.addEventListener('click', function (e) { if (e.target === viewer) viewer.close(); });
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
